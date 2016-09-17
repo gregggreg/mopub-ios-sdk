@@ -185,26 +185,26 @@ BOOL MPViewIntersectsParentWindowWithPercent(UIView *view, CGFloat percentVisibl
 
 NSString *MPResourcePathForResource(NSString *resourceName)
 {
-#ifdef MP_FABRIC
+//#ifdef MP_FABRIC
     // We store all assets inside a bundle for Fabric.
     return [@"MoPub.bundle" stringByAppendingPathComponent:resourceName];
-#else
-    if ([[UIDevice currentDevice].systemVersion compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending) {
-        // When using open source or cocoapods (on ios 8 and above), we can rely on the MoPub class
-        // living in the same bundle/framework as the assets.
-        // We can use pathForResource on ios 8 and above to succesfully load resources.
-        NSBundle *resourceBundle = [NSBundle bundleForClass:[MoPub class]];
-        NSString *resourcePath = [resourceBundle pathForResource:resourceName ofType:nil];
-        return resourcePath;
-    } else {
-        // We can just return the resource name because:
-        // 1. This is being used as an open source release so the resource will be
-        // in the main bundle.
-        // 2. This is cocoapods but CAN'T be using frameworks since that is only allowed
-        // on ios 8 and above.
-        return resourceName;
-    }
-#endif
+//#else
+//    if ([[UIDevice currentDevice].systemVersion compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending) {
+//        // When using open source or cocoapods (on ios 8 and above), we can rely on the MoPub class
+//        // living in the same bundle/framework as the assets.
+//        // We can use pathForResource on ios 8 and above to succesfully load resources.
+//        NSBundle *resourceBundle = [NSBundle bundleForClass:[MoPub class]];
+//        NSString *resourcePath = [resourceBundle pathForResource:resourceName ofType:nil];
+//        return resourcePath;
+//    } else {
+//        // We can just return the resource name because:
+//        // 1. This is being used as an open source release so the resource will be
+//        // in the main bundle.
+//        // 2. This is cocoapods but CAN'T be using frameworks since that is only allowed
+//        // on ios 8 and above.
+//        return resourceName;
+//    }
+//#endif
 }
 
 NSArray *MPConvertStringArrayToURLArray(NSArray *strArray)

@@ -134,7 +134,7 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
 
 - (BOOL)URLShouldOpenInApplication:(NSURL *)URL
 {
-    return ![self URLIsHTTPOrHTTPS:URL] || [self URLPointsToAMap:URL];
+	return YES;// ![self URLIsHTTPOrHTTPS:URL] || [self URLPointsToAMap:URL];
 }
 
 - (BOOL)URLIsHTTPOrHTTPS:(NSURL *)URL
