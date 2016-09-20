@@ -170,7 +170,7 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     } else if (request.fallbackURL) {
         [self openURLInApplication:request.fallbackURL];
     } else {
-		NSLog(@"fallback to original %@", request.originalURL);
+		[self openURLInApplication:request.originalURL];
     }
 }
 
