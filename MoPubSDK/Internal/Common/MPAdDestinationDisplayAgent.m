@@ -168,9 +168,9 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
         [self completeDestinationLoading];
         [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] sendTrackingRequestForURLs:request.primaryTrackingURLs];
     } else if (request.fallbackURL) {
-        [self handleEnhancedDeeplinkFallbackForRequest:request];
+        [self openURLInApplication:request.fallbackURL];
     } else {
-        [self openURLInApplication:request.originalURL];
+		NSLog(@"fallback to original %@", request.originalURL);
     }
 }
 

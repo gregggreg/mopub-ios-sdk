@@ -110,8 +110,15 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
         return nil;
     }
 
-    actionInfo = [MPURLActionInfo infoWithURL:self.originalURL deeplinkURL:URL];
-
+	if ([self URLHasDeeplinkPlusScheme:URL]) {
+		MPEnhancedDeeplinkRequest *request = [[MPEnhancedDeeplinkRequest alloc] initWithURL:URL];
+		if (request) {
+			actionInfo = [MPURLActionInfo infoWithURL:self.originalURL enhancedDeeplinkRequest:request];
+		} else {
+			actionInfo = [MPURLActionInfo infoWithURL:self.originalURL deeplinkURL:URL];
+		}
+	}
+	
     return actionInfo;
 }
 
@@ -129,7 +136,8 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
 
 - (BOOL)URLHasDeeplinkPlusScheme:(NSURL *)URL
 {
-    return [[URL.scheme lowercaseString] isEqualToString:@"deeplink+"];
+    return [[URL.scheme lowercaseString] isEqualToString:@"deeplink"] ||
+		[[URL.scheme lowercaseString] isEqualToString:@"deeplink+"];
 }
 
 - (BOOL)URLPointsToAMap:(NSURL *)URL
