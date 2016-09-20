@@ -110,22 +110,7 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
         return nil;
     }
 
-    if ([self storeItemIdentifierForURL:URL]) {
-        actionInfo = [MPURLActionInfo infoWithURL:self.originalURL iTunesItemIdentifier:[self storeItemIdentifierForURL:URL] iTunesStoreFallbackURL:URL];
-    } else if ([self URLHasDeeplinkPlusScheme:URL]) {
-        MPEnhancedDeeplinkRequest *request = [[MPEnhancedDeeplinkRequest alloc] initWithURL:URL];
-        if (request) {
-            actionInfo = [MPURLActionInfo infoWithURL:self.originalURL enhancedDeeplinkRequest:request];
-        } else {
-            actionInfo = [MPURLActionInfo infoWithURL:self.originalURL deeplinkURL:URL];
-        }
-    } else if ([self safariURLForURL:URL]) {
-        actionInfo = [MPURLActionInfo infoWithURL:self.originalURL safariDestinationURL:[NSURL URLWithString:[self safariURLForURL:URL]]];
-    } else if ([URL mp_isMoPubShareScheme]) {
-        actionInfo = [MPURLActionInfo infoWithURL:self.originalURL shareURL:URL];
-    } else if ([self URLShouldOpenInApplication:URL]) {
-        actionInfo = [MPURLActionInfo infoWithURL:self.originalURL deeplinkURL:URL];
-    }
+    actionInfo = [MPURLActionInfo infoWithURL:self.originalURL deeplinkURL:URL];
 
     return actionInfo;
 }
@@ -134,7 +119,7 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
 
 - (BOOL)URLShouldOpenInApplication:(NSURL *)URL
 {
-	return YES;// ![self URLIsHTTPOrHTTPS:URL] || [self URLPointsToAMap:URL];
+	return ![self URLIsHTTPOrHTTPS:URL] || [self URLPointsToAMap:URL];
 }
 
 - (BOOL)URLIsHTTPOrHTTPS:(NSURL *)URL
