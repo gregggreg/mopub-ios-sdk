@@ -118,6 +118,9 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
 			actionInfo = [MPURLActionInfo infoWithURL:self.originalURL deeplinkURL:URL];
 		}
 	}
+	else {
+		actionInfo = [MPURLActionInfo infoWithURL:self.originalURL deeplinkURL:URL];
+	}
 	
     return actionInfo;
 }
